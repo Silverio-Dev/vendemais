@@ -33,6 +33,7 @@ Antes do desenvolvimento, foram realizados:
 - Postman
 - Git e GitHub
 
+
 ## Funcionalidades
 
 ### Clientes
