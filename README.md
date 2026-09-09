@@ -118,7 +118,8 @@ Os endpoints podem ser testados utilizando o Postman.
 - Maven
 
 ### Altor
-Silverio Italo
+Silverio Italo.
+
 Projeto desenvolvido para esstudo e pratica de Engenharia de Software, desenvolvimento backend e construção de APIs REST com JAVA e SPRING Boot.
 
 ### Executando o projeto
