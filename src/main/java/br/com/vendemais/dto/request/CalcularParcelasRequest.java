@@ -1,18 +1,11 @@
 package br.com.vendemais.dto.request;
-
 import java.math.BigDecimal;
-
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 
 public class CalcularParcelasRequest {
     
     BigDecimal valor;
     int quantidade;
-
-
 
     public CalcularParcelasRequest(BigDecimal valor, int quantidade) {
         this.valor = valor;

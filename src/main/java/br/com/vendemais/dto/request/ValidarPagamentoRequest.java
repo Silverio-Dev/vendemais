@@ -1,10 +1,5 @@
 package br.com.vendemais.dto.request;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-
-
 public class ValidarPagamentoRequest {
     
     String formaPagamento;

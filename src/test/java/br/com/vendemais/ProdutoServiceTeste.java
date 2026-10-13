@@ -39,7 +39,7 @@ public class ProdutoServiceTeste {
         when(produtoRepository.save(produto)).thenReturn(produto);
         Produto resultado = produtoService.cadastrarProduto(produto);
         assertEquals(produto, resultado);
-        System.out.println("Produto cadastrado com sucesso!");
+        
     }
 
     @Test
@@ -51,7 +51,7 @@ public class ProdutoServiceTeste {
         List<Produto> produtos = List.of(produto1, produto2);
         when(produtoRepository.findAll()).thenReturn(produtos);
         assertEquals(2, produtoService.listarProdutos().size());
-        System.out.println("Quantidade de produtos cadastrados: " + produtos.size());
+      
     }
 
 
@@ -65,7 +65,7 @@ public class ProdutoServiceTeste {
         when(produtoRepository.save(produtoExistente)).thenReturn(produtoExistente);
         Produto resultado = produtoService.alterarPreco(1L, produtoNovo);
         assertEquals(new BigDecimal(600.00), resultado.getPreco());
-        System.out.println("Preço do produto após alteração: R$ " + resultado.getPreco());
+        
     }
 
     @Test 
@@ -77,7 +77,7 @@ public class ProdutoServiceTeste {
         cliente.setAniversario(LocalDate.now());
         Produto resultado = produtoService.aplicarDescontoEspeciais(produto, cliente);
         assertEquals(0, resultado.getPreco().compareTo(new BigDecimal("144.50")));
-        System.out.println("Preço do produto com desconto de aniversário: R$ " + resultado.getPreco());
+        
     }
 
     @Test
@@ -89,7 +89,7 @@ public class ProdutoServiceTeste {
         when(produtoRepository.save(produto)).thenReturn(produto);
         Produto resultado = produtoService.aplicarDesconto(1L, produto);
         assertEquals(0, resultado.getPreco().compareTo(new BigDecimal("420.00")));
-        System.out.println("Preço do produto após o desconto: R$ " + resultado.getPreco());
+        
     }
 
     @Test 
@@ -102,7 +102,7 @@ public class ProdutoServiceTeste {
         when(produtoRepository.save(produto)).thenReturn(produto);
         Produto resultado = produtoService.baixarEstoque(1L, quantidade);
         assertEquals(5, resultado.getEstoque());
-        System.out.println("Estoque do produto após a baixa: " + resultado.getEstoque());
+        
     }
 
     @Test 
@@ -111,16 +111,15 @@ public class ProdutoServiceTeste {
         Integer quantidade  = 5;
         BigDecimal resultado = produtoService.calcularParcelas(valor, quantidade);
         assertEquals(0, resultado.compareTo(new BigDecimal("100.00")));
-        System.out.println("Valor de cada parcelas: R$ " + resultado);
+        
     }
 
     @Test 
     public void deveCalcularParcelamento() {
         BigDecimal valor = new BigDecimal("600.00");
-        Integer quantidade = 6;
         BigDecimal resultado = produtoService.calcularParcelamento(valor, 6);
         assertEquals(0, resultado.compareTo(new BigDecimal("105.00")));
-        System.out.println("Valor da parcelas após o acréscimo: R$ " + resultado);
+       
     }
 
     @Test
@@ -129,7 +128,7 @@ public class ProdutoServiceTeste {
         produto.setPreco(new BigDecimal("900.00"));
         boolean resultado = produtoService.verificarProdutoAcimaDeOitoCentosReais(produto);
         assertTrue(resultado);
-        System.out.println("Prodruto acima de R$ 800.00: " + resultado);
+       
     }
     
     

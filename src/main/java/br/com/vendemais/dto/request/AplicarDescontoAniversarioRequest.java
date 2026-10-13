@@ -2,9 +2,6 @@ package br.com.vendemais.dto.request;
 
 import br.com.vendemais.model.Cliente;
 import br.com.vendemais.model.Produto;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 
 public class AplicarDescontoAniversarioRequest {

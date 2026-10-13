@@ -1,8 +1,5 @@
 package br.com.vendemais.dto.request;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 
 public class ValidarQuantidadeItensRequest {
