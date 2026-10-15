@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -65,16 +66,16 @@ public class ClienteController {
         clienteService.deletarCliente(id);
     }
 
-    @PostMapping("/alterar")
-    public ClienteResponse alterarCliente(@RequestBody Cliente cliente) {
-        Cliente clienteAlterado = clienteService.alterCliente(cliente);
-        return new ClienteResponse(
-            clienteAlterado.getId(),
-            clienteAlterado.getNome(),
-            clienteAlterado.getCpf(),
-            clienteAlterado.getTelefone()
-        );
-
+    @PutMapping("/{id}")
+    public ClienteResponse alterarCliente( @PathVariable Long id, @RequestBody Cliente cliente) {
+    Cliente clienteAlterado = clienteService.alterarCliente(id, cliente);
+    return new ClienteResponse(
+        clienteAlterado.getId(),
+        clienteAlterado.getNome(),
+        clienteAlterado.getCpf(),
+        clienteAlterado.getTelefone()
+    );
+    
     }
 }
 

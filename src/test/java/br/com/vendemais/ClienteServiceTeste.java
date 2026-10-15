@@ -37,7 +37,7 @@ public class ClienteServiceTeste {
         when(clienteRepository.saveAll(clientes)).thenReturn(clientes);
         List<Cliente> resultado = clienteService.cadastrarClientes(clientes);
         assertEquals(3, resultado.size());
-        System.out.println("Quantidade de clientes cadastrados: " + resultado);
+
 
     } 
 
@@ -52,18 +52,27 @@ public class ClienteServiceTeste {
         List<Cliente> clientes = List.of(cliente1, cliente2, cliente3);
         when(clienteRepository.findAll()).thenReturn(clientes);
         assertEquals(3, clienteService.listarClientes().size());
-        System.out.println("Quantidade de clientes listados: " + clientes.size());
+        
     }
 
-    @Test 
+
+    @Test
     public void deveAlterarCliente() {
         Cliente cliente = new Cliente();
         cliente.setId(1L);
+        cliente.setNome("João Roberto");
+        cliente.setCpf("45602317896");
+        cliente.setTelefone("7799523698");
+        when(clienteRepository.findById(1L)).thenReturn(Optional.of(cliente));
         when(clienteRepository.save(cliente)).thenReturn(cliente);
-        Cliente resultado = clienteService.alterCliente(cliente);
+        Cliente resultado = clienteService.alterarCliente(1L, cliente);
         assertEquals(cliente, resultado);
-        System.out.println("Cliente alterado com sucesso: ID " + resultado.getId());
+        verify(clienteRepository).findById(1L);
+        verify(clienteRepository).save(cliente);
+    
     }
+
+      
 
     @Test 
     public void deveBuscarClientePorId() {
@@ -72,7 +81,7 @@ public class ClienteServiceTeste {
         when(clienteRepository.findById(1L)).thenReturn(Optional.of(clienteExistente));
         Cliente resultado = clienteService.buscarClientePorId(1L);
         assertEquals(clienteExistente, resultado);
-        System.out.println("Cliente encontrado com sucesso: ID " + resultado.getId());
+       
     }
     
     @Test 
@@ -80,8 +89,9 @@ public class ClienteServiceTeste {
         Long id = 4L;
         clienteService.deletarCliente(id);
         verify(clienteRepository).deleteById(4L);
-        System.out.println("Cliente deletado com sucesso: ID " + id);
+       
 
 
     }
+  
 }

@@ -22,6 +22,8 @@ public class ItemVendaResponse {
         this.precoProdutoMomentoCompra = precoProdutoMomentoCompra;
         this.subtotal = subtotal;
     }
+
+    
     public Long getProdutoId() {
         return produtoId;
     }

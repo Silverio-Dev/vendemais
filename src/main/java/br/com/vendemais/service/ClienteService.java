@@ -16,28 +16,32 @@ public class ClienteService {
     public ClienteService(ClienteRepository clienteRepository) {
         this.clienteRepository = clienteRepository;
     }
-    //Listar//
+    
     public List<Cliente> listarClientes() {
         return clienteRepository.findAll();
     }
-    //Cadastrar//
+    
     public List<Cliente> cadastrarClientes(List<Cliente> clientes) {
         return clienteRepository.saveAll(clientes);
     }
-    //Deletar//
+    
     public void deletarCliente(Long id) {
         clienteRepository.deleteById(id);
     }
-    //Alterar//
-    public Cliente alterCliente(Cliente cliente) {
-        return clienteRepository.save(cliente);
+    
+    public Cliente alterarCliente(Long id, Cliente cliente) {
+    Cliente clienteExistente = clienteRepository.findById(id)
+        .orElseThrow(() -> new RuntimeException("Cliente não encontrado!"));
+    clienteExistente.setNome(cliente.getNome());
+    clienteExistente.setCpf(cliente.getCpf());
+    clienteExistente.setTelefone(cliente.getTelefone());
+    return clienteRepository.save(clienteExistente);
+
     }
-    //Buscar//
+    
     public Cliente buscarClientePorId(Long id) {
         return clienteRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Cliente não encontrado com o ID: " + id));
     }
 
-
-   
 }

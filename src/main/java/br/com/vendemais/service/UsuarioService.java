@@ -1,10 +1,13 @@
 package br.com.vendemais.service;
 
+import java.util.List;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.com.vendemais.dto.request.LoginRequest;
 import br.com.vendemais.dto.response.LoginResponse;
+import br.com.vendemais.exception.RecursoNaoEncontradoException;
 import br.com.vendemais.model.Usuario;
 import br.com.vendemais.repository.UsuarioRepository;
 
@@ -25,6 +28,15 @@ public class UsuarioService {
     public Usuario cadastrar(Usuario usuario) {
         usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
         return usuarioRepository.save(usuario);
+    }
+
+
+    public List<Usuario> listarUsuarios(){
+        return usuarioRepository.findAll();
+    }
+
+    public void excluirUsuario(Long id){
+         usuarioRepository.deleteById(id);
     }
 
     public LoginResponse autenticar(LoginRequest request) {
