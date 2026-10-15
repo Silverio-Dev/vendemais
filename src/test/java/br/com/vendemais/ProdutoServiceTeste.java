@@ -122,14 +122,21 @@ public class ProdutoServiceTeste {
        
     }
 
-  //  @Test
-   // public void deveVerificarProdutoAcimaDe800() {
-    //    Produto produto = new Produto();
-   //     produto.setPreco(new BigDecimal("900.00"));
-//boolean resultado = produtoService.verificarProdutoAcimaDeOitoCentosReais(produto);
-//assertTrue(resultado);
+    @Test
+    public void deveListarProdutosAcimaDe800() {
+        Produto produto1 = new Produto();
+        Produto produto2 = new Produto();
+        produto1.setPreco(new BigDecimal("900.00"));
+        produto2.setPreco(new BigDecimal("200.00"));
+        List<Produto> produtos = List.of(produto1, produto2);
+        when(produtoRepository.findAll()).thenReturn(produtos);
+       List<Produto> resultado = produtoService.listarProdutoAcimOitocentoReais();
+        assertEquals(1, resultado.size());
+        assertTrue(resultado.contains(produto1));
+        assertFalse(resultado.contains(produto2));
+        
        
-//}
+    }
     
     
 }
