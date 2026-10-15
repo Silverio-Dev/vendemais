@@ -67,8 +67,8 @@ public class ProdutoController {
     }
 
     @GetMapping("/verificar-acima-oito-centos")
-    public boolean verificarProdutoAcimaDeOitoCentosReais(@RequestBody Produto produto) {
-        return produtoService.verificarProdutoAcimaDeOitoCentosReais(produto);
+    public List<Produto> verificarProdutoAcimaDeOitoCentosReais() {
+        return produtoService.listarProdutoAcimOitocentoReais();
     }
 
 }

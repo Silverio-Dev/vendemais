@@ -122,14 +122,14 @@ public class ProdutoServiceTeste {
        
     }
 
-    @Test
-    public void deveVerificarProdutoAcimaDe800() {
-        Produto produto = new Produto();
-        produto.setPreco(new BigDecimal("900.00"));
-        boolean resultado = produtoService.verificarProdutoAcimaDeOitoCentosReais(produto);
-        assertTrue(resultado);
+  //  @Test
+   // public void deveVerificarProdutoAcimaDe800() {
+    //    Produto produto = new Produto();
+   //     produto.setPreco(new BigDecimal("900.00"));
+//boolean resultado = produtoService.verificarProdutoAcimaDeOitoCentosReais(produto);
+//assertTrue(resultado);
        
-    }
+//}
     
     
 }

@@ -112,10 +112,13 @@ public class ProdutoService {
     }
 
     //Verificação de Produto Acima de 800 Reais//
-    public boolean verificarProdutoAcimaDeOitoCentosReais(Produto produto) {
-        return produto.getPreco().compareTo(BigDecimal.valueOf(800)) > 0;
+    public List<Produto> listarProdutoAcimOitocentoReais(){
+        return produtoRepository.findAll()
+                .stream()
+                .filter(produto -> produto.getPreco()
+                .compareTo(BigDecimal.valueOf(800.00)) > 0)
+                .toList();
     }
-
-
+    
 
 }
