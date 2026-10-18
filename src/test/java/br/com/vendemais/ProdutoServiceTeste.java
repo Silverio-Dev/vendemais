@@ -55,18 +55,18 @@ public class ProdutoServiceTeste {
     }
 
 
-    @Test 
+    
+    @Test
     public void deveAlterarPreco() {
-        Produto produtoExistente = new Produto();
-        produtoExistente.setPreco(new BigDecimal(300.00));
-        Produto produtoNovo = new Produto();
-        produtoNovo.setPreco(new BigDecimal(600.00));
-        when(produtoRepository.findById(1L)).thenReturn(Optional.of(produtoExistente));
-        when(produtoRepository.save(produtoExistente)).thenReturn(produtoExistente);
-        Produto resultado = produtoService.alterarPreco(1L, produtoNovo);
-        assertEquals(new BigDecimal(600.00), resultado.getPreco());
-        
-    }
+    Produto produtoExistente = new Produto();
+    produtoExistente.setPreco(new BigDecimal("300.00"));
+    when(produtoRepository.findById(1L)).thenReturn(Optional.of(produtoExistente));
+    when(produtoRepository.save(produtoExistente)).thenReturn(produtoExistente);
+    Produto resultado = produtoService.alterarPreco(1L, new BigDecimal("600.00"));
+    assertEquals(0, new BigDecimal("600.00").compareTo(resultado.getPreco()));
+}
+
+
 
     @Test 
     public void deveAplicacrDescontoAniversaioEspeciais() {
@@ -130,12 +130,25 @@ public class ProdutoServiceTeste {
         produto2.setPreco(new BigDecimal("200.00"));
         List<Produto> produtos = List.of(produto1, produto2);
         when(produtoRepository.findAll()).thenReturn(produtos);
-       List<Produto> resultado = produtoService.listarProdutoAcimOitocentoReais();
+       List<Produto> resultado = produtoService.listarProdutoAcimaOitocentoReais();
         assertEquals(1, resultado.size());
         assertTrue(resultado.contains(produto1));
         assertFalse(resultado.contains(produto2));
         
-       
+    }
+
+    @Test 
+    public void deveListarProdutoAbaixoDe100(){
+        Produto produto1 = new Produto();
+        Produto produto2 = new Produto();
+        produto1.setPreco(new BigDecimal(90.00));
+        produto2.setPreco(new BigDecimal(120.00));
+        List<Produto> produtos = List.of(produto1, produto2);
+        when(produtoRepository.findAll()).thenReturn(produtos);
+        List<Produto> resultado = produtoService.listarProdutoAbaixoCemReais();
+        assertEquals(1, resultado.size());
+        assertTrue(resultado.contains(produto1));
+        assertFalse(resultado.contains(produto2));
     }
     
     

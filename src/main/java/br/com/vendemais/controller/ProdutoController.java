@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.vendemais.dto.request.AplicarDescontoAniversarioRequest;
 import br.com.vendemais.dto.request.CalcularParcelasRequest;
+import br.com.vendemais.dto.request.ProdutoRequest;
+import br.com.vendemais.dto.response.ProdutoResponse;
 import br.com.vendemais.model.Produto;
 import br.com.vendemais.service.ProdutoService;
 
@@ -26,11 +28,24 @@ public class ProdutoController {
         this.produtoService = produtoService;
     }
 
+   
+    
     @PutMapping("{id}/produto")
-    public Produto altetrarPreco(@PathVariable Long id, @RequestBody Produto produto){
-        return produtoService.alterarPreco(id, produto);
+    public ProdutoResponse alterarPreco(
+        @PathVariable Long id,
+        @RequestBody ProdutoRequest produto) {
+    Produto produtoAtualizado = produtoService.alterarPreco(id, produto.getPreco());
+    return new ProdutoResponse(
+            produtoAtualizado.getId(),
+            produtoAtualizado.getNome(),
+            produtoAtualizado.getDescricao(),
+            produtoAtualizado.getPreco(),
+            produtoAtualizado.getEstoque()
+    );
+
     }
 
+    
     @PutMapping("/desconto-aniversario")
         public Produto aplicarDescontoAniversario(@RequestBody AplicarDescontoAniversarioRequest request) {
             return produtoService.aplicarDescontoEspeciais(request.getProduto(), request.getCliente());
@@ -68,7 +83,14 @@ public class ProdutoController {
 
     @GetMapping("/verificar-acima-oito-centos")
     public List<Produto> verificarProdutoAcimaDeOitoCentosReais() {
-        return produtoService.listarProdutoAcimOitocentoReais();
+        return produtoService.listarProdutoAcimaOitocentoReais();
+
     }
+
+    @GetMapping("/verificaProdutosAbaixoCemReais")
+        public List<Produto> verificaProdutosAbaixoCemReais(){
+            return produtoService.listarProdutoAbaixoCemReais();
+        }
+    
 
 }

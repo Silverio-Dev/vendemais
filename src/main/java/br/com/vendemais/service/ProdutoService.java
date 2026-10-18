@@ -24,29 +24,34 @@ public class ProdutoService {
         this.produtoRepository = produtoRepository;
     }
 
-    //cadastrar produto//
+    
     public Produto cadastrarProduto(Produto produto) {
         return produtoRepository.save(produto);
     }
 
-    //Listar produtos//
     public List<Produto> listarProdutos() {
         return produtoRepository.findAll();
     }
 
-    //alterar preço do produto//
+    
+
+   
     @Transactional
-    public Produto alterarPreco(Long id, Produto produto) {
-        Produto produtoExistente = produtoRepository.findById(id)
-        .orElseThrow(() -> new RecursoNaoEncontradoException("Produto nao foi encontrado"));
-        if (produtoExistente.getPreco().compareTo(BigDecimal.ZERO) <= 0) {
-            throw new RegraNegocioException("O preço do produto não pode ser negativo.");
-        }
-        produtoExistente.setPreco(produto.getPreco());
-        return produtoRepository.save(produtoExistente);
+    public Produto alterarPreco(Long id, BigDecimal preco) {
+    Produto produtoExistente = produtoRepository.findById(id)
+            .orElseThrow(() ->
+                    new RecursoNaoEncontradoException("Produto nao foi encontrado"));
+    if (preco == null || preco.compareTo(BigDecimal.ZERO) <= 0) {
+        throw new RegraNegocioException("O preço deve ser maior que zero.");
+    }
+    produtoExistente.setPreco(preco);
+    return produtoRepository.save(produtoExistente);
+
     }
 
-    //Desconto de Aniversário e Promoção//
+    
+
+   
     public Produto aplicarDescontoEspeciais(Produto produto, Cliente cliente) {
         if (cliente.getAniversario().getDayOfMonth() == LocalDate.now().getDayOfMonth() &&
         cliente.getAniversario().getMonth() == LocalDate.now().getMonth()) {
@@ -62,7 +67,7 @@ public class ProdutoService {
         return produto;
 
     }
-    //Desconto de 30%//
+    
     @Transactional
     public Produto aplicarDesconto(Long id, Produto produto){
         Produto produtoExistente = produtoRepository.findById(id)
@@ -76,7 +81,7 @@ public class ProdutoService {
 
     }
 
-    //Baixar estoques//
+    
     @Transactional
     public Produto baixarEstoque(Long produtoId, Integer quantidade) {
         Produto produto = produtoRepository.findById(produtoId)
@@ -92,8 +97,8 @@ public class ProdutoService {
 
     //5 Parcelas sem juros//
     public BigDecimal calcularParcelas(BigDecimal valor, int quantidade) {
-        if (quantidade < 1 || quantidade > 5) {
-            throw new RegraNegocioException("Quantidade de parcelas deverá ser entre 1 e 5.");
+        if (quantidade < 1 || quantidade > 3) {
+            throw new RegraNegocioException("Quantidade de parcelas deverá ser entre 1 e 3.");
         }
         return valor.divide(BigDecimal.valueOf(quantidade), 2, RoundingMode.HALF_UP);
     }
@@ -101,9 +106,9 @@ public class ProdutoService {
 
     // 6 ou mais Parcelas//
     public BigDecimal calcularParcelamento(BigDecimal valor, int quantidade) {
-        if (quantidade < 6 ) {
+        if (quantidade < 5 ) {
             throw new RegraNegocioException(
-                "Para esse tipo de parcelamento, são nescessarias no minimo 6 parcelas");
+                "Para esse tipo de parcelamento, são nescessarias no minimo 5 parcelas");
         }
         BigDecimal acrecimo = BigDecimal.valueOf(5);
         BigDecimal acrecimoTotal = acrecimo.multiply(BigDecimal.valueOf(quantidade));
@@ -111,13 +116,19 @@ public class ProdutoService {
         return valorComAcrecimo.divide(BigDecimal.valueOf(quantidade), 2, RoundingMode.HALF_UP);
     }
 
-    //Verificação de Produto Acima de 800 Reais//
-    public List<Produto> listarProdutoAcimOitocentoReais(){
+    public List<Produto> listarProdutoAcimaOitocentoReais(){
         return produtoRepository.findAll()
                 .stream()
                 .filter(produto -> produto.getPreco()
                 .compareTo(BigDecimal.valueOf(800.00)) > 0)
                 .toList();
+    }
+
+    public List<Produto> listarProdutoAbaixoCemReais(){
+        return produtoRepository.findAll()
+        .stream().filter(produto -> produto.getPreco()
+        .compareTo(BigDecimal.valueOf(100)) < 0)
+        .toList();
     }
     
 

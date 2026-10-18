@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import br.com.vendemais.dto.request.LoginRequest;
 import br.com.vendemais.dto.response.LoginResponse;
-import br.com.vendemais.exception.RecursoNaoEncontradoException;
 import br.com.vendemais.model.Usuario;
 import br.com.vendemais.repository.UsuarioRepository;
 
