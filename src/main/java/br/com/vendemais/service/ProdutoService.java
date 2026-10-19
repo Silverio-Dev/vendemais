@@ -34,8 +34,6 @@ public class ProdutoService {
     }
 
     
-
-   
     @Transactional
     public Produto alterarPreco(Long id, BigDecimal preco) {
     Produto produtoExistente = produtoRepository.findById(id)
@@ -50,7 +48,6 @@ public class ProdutoService {
     }
 
     
-
    
     public Produto aplicarDescontoEspeciais(Produto produto, Cliente cliente) {
         if (cliente.getAniversario().getDayOfMonth() == LocalDate.now().getDayOfMonth() &&
