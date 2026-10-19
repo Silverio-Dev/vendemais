@@ -45,15 +45,14 @@ public class ProdutoController {
 
     }
 
-    
     @PutMapping("/desconto-aniversario")
         public Produto aplicarDescontoAniversario(@RequestBody AplicarDescontoAniversarioRequest request) {
             return produtoService.aplicarDescontoEspeciais(request.getProduto(), request.getCliente());
     }
 
     @PutMapping("{id}/desconto")
-    public Produto aplicarDesconto(@PathVariable Long id, @RequestBody Produto produto) {
-        return produtoService.aplicarDesconto(id, produto);
+    public Produto aplicarDesconto(@PathVariable Long id, @RequestBody ProdutoRequest request) {
+        return produtoService.aplicarDesconto(id, request.getDesconto());
     }
 
     @PutMapping("/{produtoId}/baixa-estoque/")

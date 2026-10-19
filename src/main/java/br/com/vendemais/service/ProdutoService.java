@@ -65,16 +65,21 @@ public class ProdutoService {
 
     }
     
-    @Transactional
-    public Produto aplicarDesconto(Long id, Produto produto){
-        Produto produtoExistente = produtoRepository.findById(id)
-        .orElseThrow(() -> new RecursoNaoEncontradoException("Produto nao foi encontrado."));
-        produtoExistente.setPreco(produto.getPreco());
-        BigDecimal desconto = produtoExistente.getPreco().multiply(BigDecimal.valueOf(0.30));
-        BigDecimal precoComDesconto = produtoExistente.getPreco().subtract(desconto);
-        produtoExistente.setPreco(precoComDesconto);
-        return produtoRepository.save(produtoExistente);
-        
+   @Transactional
+public Produto aplicarDesconto(Long id, BigDecimal desconto) {
+    Produto produto = produtoRepository.findById(id)
+            .orElseThrow(() -> new RecursoNaoEncontradoException("Produto nao foi encontrado."));
+    if (desconto == null
+            || desconto.compareTo(BigDecimal.ZERO) <= 0
+            || desconto.compareTo(BigDecimal.valueOf(100)) > 0) {
+        throw new IllegalArgumentException("O desconto deve ser maior que 0 e menor ou igual a 100.");
+    }
+    BigDecimal percentual = desconto.divide(BigDecimal.valueOf(100), 4, RoundingMode.HALF_UP);
+    BigDecimal valorDesconto = produto.getPreco().multiply(percentual);
+    BigDecimal novoPreco = produto.getPreco().subtract(valorDesconto);
+    produto.setPreco(novoPreco.setScale(2, RoundingMode.HALF_UP));
+    return produtoRepository.save(produto);
+
 
     }
 

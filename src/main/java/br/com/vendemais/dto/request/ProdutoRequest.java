@@ -13,42 +13,54 @@ public class ProdutoRequest {
     private String nome;
     @NotBlank
     private String descricao;
+    private BigDecimal desconto;
     @Positive
     private BigDecimal preco;
     @PositiveOrZero
     private Integer estoque;
-
+    
     
     public ProdutoRequest(@NotBlank String nome, @NotBlank String descricao, @Positive BigDecimal preco,
-            @PositiveOrZero Integer estoque) {
-        this.nome = nome;
-        this.descricao = descricao;
-        this.preco = preco;
-        this.estoque = estoque;
-    }
-    public String getNome() {
-        return nome;
-    }
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-    public String getDescricao() {
-        return descricao;
-    }
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-    public BigDecimal getPreco() {
-        return preco;
-    }
-    public void setPreco(BigDecimal preco) {
-        this.preco = preco;
-    }
-    public Integer getEstoque() {
-        return estoque;
-    }
-    public void setEstoque(Integer estoque) {
-        this.estoque = estoque;
-    }
+        @PositiveOrZero Integer estoque, BigDecimal desconto) {
+            this.nome = nome;
+            this.descricao = descricao;
+            this.preco = preco;
+            this.estoque = estoque;
+            this.desconto = desconto;
+        }
+        
+        
+        public String getNome() {
+            return nome;
+        }
+        public void setNome(String nome) {
+            this.nome = nome;
+        }
+        public String getDescricao() {
+            return descricao;
+        }
+        public void setDescricao(String descricao) {
+            this.descricao = descricao;
+        }
+        public BigDecimal getPreco() {
+            return preco;
+        }
+        public void setPreco(BigDecimal preco) {
+            this.preco = preco;
+        }
+        public Integer getEstoque() {
+            return estoque;
+        }
+        public void setEstoque(Integer estoque) {
+            this.estoque = estoque;
+        }
+        
+        public void setDesconto(BigDecimal desconto) {
+            this.desconto = desconto;
+        }
+        public BigDecimal getDesconto() {
+            return desconto;
+        }
+
 
 }
