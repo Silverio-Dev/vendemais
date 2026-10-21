@@ -97,20 +97,20 @@ public Produto aplicarDesconto(Long id, BigDecimal desconto) {
         return produtoRepository.save(produto);
     }
 
-    //5 Parcelas sem juros//
+    
     public BigDecimal calcularParcelas(BigDecimal valor, int quantidade) {
-        if (quantidade < 1 || quantidade > 3) {
+        if (quantidade < 1 || quantidade > 4) {
             throw new RegraNegocioException("Quantidade de parcelas deverá ser entre 1 e 3.");
         }
         return valor.divide(BigDecimal.valueOf(quantidade), 2, RoundingMode.HALF_UP);
     }
 
 
-    // 6 ou mais Parcelas//
+  
     public BigDecimal calcularParcelamento(BigDecimal valor, int quantidade) {
-        if (quantidade < 5 ) {
+        if (quantidade <= 5 || quantidade >= 12) {
             throw new RegraNegocioException(
-                "Para esse tipo de parcelamento, são nescessarias no minimo 5 parcelas");
+                "Para esse tipo de parcelamento, são nescessarias no minimo 5 parcelas e no maximo 12");
         }
         BigDecimal acrecimo = BigDecimal.valueOf(5);
         BigDecimal acrecimoTotal = acrecimo.multiply(BigDecimal.valueOf(quantidade));

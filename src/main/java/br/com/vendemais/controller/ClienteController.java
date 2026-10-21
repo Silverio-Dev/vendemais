@@ -37,7 +37,7 @@ public class ClienteController {
         .toList();
     }
 
-    @GetMapping({"/{id}"})
+    @GetMapping("/{id}")
     public ClienteResponse buscarClientePorId(@PathVariable Long id) {
         Cliente cliente = clienteService.buscarClientePorId(id);
         return new ClienteResponse(
@@ -66,7 +66,7 @@ public class ClienteController {
         clienteService.deletarCliente(id);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{id}/alter")
     public ClienteResponse alterarCliente( @PathVariable Long id, @RequestBody Cliente cliente) {
     Cliente clienteAlterado = clienteService.alterarCliente(id, cliente);
     return new ClienteResponse(

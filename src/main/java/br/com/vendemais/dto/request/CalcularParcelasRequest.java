@@ -1,17 +1,19 @@
 package br.com.vendemais.dto.request;
 import java.math.BigDecimal;
 
-
 public class CalcularParcelasRequest {
     
     BigDecimal valor;
     int quantidade;
-
+    
     public CalcularParcelasRequest(BigDecimal valor, int quantidade) {
         this.valor = valor;
         this.quantidade = quantidade;
     }
-    
+
+    public CalcularParcelasRequest(){
+
+    }
     public BigDecimal getValor() {
         return valor;
     }
