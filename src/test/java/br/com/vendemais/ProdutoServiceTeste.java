@@ -80,17 +80,18 @@ public class ProdutoServiceTeste {
         
     }
 
-    @Test
+   @Test
     public void deveAplicarDesconto(){
         Produto produto = new Produto();
         produto.setId(1L);
-        produto.setPreco(new BigDecimal("600.00"));
+        produto.setPreco(new BigDecimal("100.00"));
         when(produtoRepository.findById(1L)).thenReturn(Optional.of(produto));
         when(produtoRepository.save(produto)).thenReturn(produto);
-        Produto resultado = produtoService.aplicarDesconto(1L, produto);
-        assertEquals(0, resultado.getPreco().compareTo(new BigDecimal("420.00")));
+        Produto resultado = produtoService.aplicarDesconto(1L, BigDecimal.valueOf(10));
+        assertEquals(0, resultado.getPreco().compareTo(new BigDecimal("90.00")));
         
     }
+
 
     @Test 
     public void deveBaixarEstoque(){
